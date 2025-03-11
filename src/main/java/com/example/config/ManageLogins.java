@@ -1,4 +1,4 @@
-package com.example.model;
+package com.example.config;
 import java.util.HashMap;
 
 //singleton
