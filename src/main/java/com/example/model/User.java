@@ -23,9 +23,8 @@ public class User {
         super();
     }
 
-    public User(int id, String nom, String grade) {
+    public User(String nom, String grade) {
         super();
-        this.id = id;
         this.nom = nom;
         this.grade = grade;
     }
