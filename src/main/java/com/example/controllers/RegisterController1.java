@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.config.ManageLogins;
 
 //@Controller
-public class RegisterControllerSea1 {
+public class RegisterController1 {
 
 	//@RequestMapping(method =)
 	@GetMapping("/")
