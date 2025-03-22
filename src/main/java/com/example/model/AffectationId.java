@@ -1,7 +1,6 @@
 package com.example.model;
 
 import jakarta.persistence.Embeddable;
-import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
