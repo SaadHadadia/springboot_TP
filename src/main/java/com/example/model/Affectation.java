@@ -1,11 +1,9 @@
 package com.example.model;
 
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -14,8 +12,10 @@ public class Affectation {
 
     @EmbeddedId
     private AffectationId id;
-    private String db;
-    private String df;
+    @Temporal(TemporalType.DATE)
+    private Date db;
+    @Temporal(TemporalType.DATE)
+    private Date df;
     @ManyToOne
     @MapsId("login")
     private User user;
@@ -27,7 +27,7 @@ public class Affectation {
         super();
     }
 
-    public Affectation(AffectationId id, String db, String df) {
+    public Affectation(AffectationId id, Date db, Date df) {
         super();
         this.id = id;
         this.db = db;

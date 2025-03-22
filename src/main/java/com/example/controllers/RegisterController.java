@@ -1,5 +1,8 @@
 package com.example.controllers;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -38,8 +41,7 @@ public class RegisterController {
     }
 
     @PostMapping("/registry")
-    public ModelAndView getDataRegistryForm(@RequestParam Map<String,String> allParams)
-    {
+    public ModelAndView getDataRegistryForm(@RequestParam Map<String,String> allParams) throws ParseException {
         ModelAndView model = new ModelAndView();
         model.addObject("logins", ManageLogins.instance.addLogin(allParams.get("login"),allParams.get("mdp")));
 
@@ -71,7 +73,10 @@ public class RegisterController {
                 userRepository.findByNom("nom3").get(0).getId(),
                 "informaticen"
         );
-        Affectation affectation = new Affectation(affectationId, "01-01-2025", "01-01-2025");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date startDate = dateFormat.parse("01-01-2025");
+        Date endDate = dateFormat.parse("01-01-2025");
+        Affectation affectation = new Affectation(affectationId, startDate, endDate);
         fonctionRepository.save(fonction);
         affectationRepository.save(affectation);
 
