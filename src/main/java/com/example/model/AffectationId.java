@@ -8,15 +8,15 @@ import lombok.Setter;
 @Setter
 @Embeddable
 public class AffectationId {
-    private int login;
-    private String libelle;
+    private int userId;
+    private String fonctionId;
 
     public AffectationId() {
         super();
     }
-    public AffectationId(int login, String libelle) {
+    public AffectationId(int userId, String fonctionId) {
         super();
-        this.login = login;
-        this.libelle = libelle;
+        this.userId = userId;
+        this.fonctionId = fonctionId;
     }
 }

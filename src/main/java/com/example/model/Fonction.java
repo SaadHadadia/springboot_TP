@@ -15,14 +15,6 @@ public class Fonction {
     @Id
     private String libelle;
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "Fonction_User",
-//            joinColumns =@JoinColumn(name = "libelle"),
-//            inverseJoinColumns = @JoinColumn(name = "id")
-//    )
-//    private List<User> users;
-
     @OneToMany(mappedBy = "fonction")
     private List<Affectation> affectations;
 

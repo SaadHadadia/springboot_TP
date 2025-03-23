@@ -31,8 +31,17 @@
     <div class="bg-white backdrop-blur-lg bg-opacity-95 rounded-2xl shadow-2xl overflow-hidden">      
       <div class="p-8">
         <h2 class="text-2xl font-bold text-dark mb-6 text-center">Bienvenue</h2>
+
+        <!-- Add error message display -->
+        <% if (request.getAttribute("Error") !=null) { %>
+          <div class="mb-4 p-2 rounded-lg bg-red-100 border border-red-400 text-red-700">
+            <p class="text-center">
+              <%= request.getAttribute("Error") %>
+            </p>
+          </div>
+          <% } %>
         
-        <form method="post" action="registry" class="space-y-6">
+        <form method="post" action="register" class="space-y-6">
           <div>
             <div class="relative">
               <input 
@@ -75,61 +84,20 @@
             </div>
           </div>
           
-          <div class="flex items-center justify-between">
-            <div class="flex items-center">
-              <input 
-                id="remember" 
-                name="remember" 
-                type="checkbox" 
-                class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
-              />
-              <label for="remember" class="ml-2 block text-sm text-gray-700">
-                Se souvenir de moi
-              </label>
-            </div>
-            <a href="#" class="text-sm text-primary hover:text-secondary">
-              Mot de passe oublié?
-            </a>
-          </div>
-          
           <div>
             <button 
               type="submit" 
               class="w-full bg-gradient-to-r from-primary to-secondary text-white font-medium py-3 px-4 rounded-lg hover:opacity-90 transition-opacity shadow-md"
             >
-              Se connecter
+              Créer un compte
             </button>
           </div>
         </form>
         
-        <!-- Social Login -->
-        <div class="mt-6">
-          <div class="relative flex items-center justify-center">
-            <div class="absolute inset-0 flex items-center">
-              <div class="w-full border-t border-gray-300"></div>
-            </div>
-            <div class="relative px-4 bg-white text-sm text-gray-500">
-              Ou continuer avec
-            </div>
-          </div>
-          
-          <div class="mt-6 grid grid-cols-3 gap-3">
-            <button class="flex justify-center items-center py-2 px-4 border rounded-md shadow-sm bg-white hover:bg-gray-50">
-              <i class="fab fa-google text-red-500"></i>
-            </button>
-            <button class="flex justify-center items-center py-2 px-4 border rounded-md shadow-sm bg-white hover:bg-gray-50">
-              <i class="fab fa-facebook text-blue-600"></i>
-            </button>
-            <button class="flex justify-center items-center py-2 px-4 border rounded-md shadow-sm bg-white hover:bg-gray-50">
-              <i class="fab fa-apple text-gray-800"></i>
-            </button>
-          </div>
-        </div>
-        
         <div class="text-center mt-8">
           <p class="text-sm text-gray-600">Vous n'avez pas de compte ?</p>
           <a href="/" class="text-primary hover:text-secondary font-medium">
-            Créer un compte
+            Se connecter
           </a>
         </div>
       </div>

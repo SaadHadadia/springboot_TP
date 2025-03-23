@@ -12,16 +12,19 @@ public class Affectation {
 
     @EmbeddedId
     private AffectationId id;
-    @Temporal(TemporalType.DATE)
-    private Date db;
-    @Temporal(TemporalType.DATE)
-    private Date df;
+
     @ManyToOne
-    @MapsId("login")
+    @MapsId("userId")
+    @JoinColumn(name = "user_id")
     private User user;
+
     @ManyToOne
-    @MapsId("libelle")
+    @MapsId("fonctionId")
+    @JoinColumn(name = "fonction_libelle")
     private Fonction fonction;
+
+    private Date db;
+    private Date df;
 
     public Affectation() {
         super();

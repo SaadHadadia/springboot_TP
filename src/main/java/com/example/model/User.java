@@ -18,14 +18,6 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Login> logins;
 
-//    @ManyToMany
-//    @JoinTable(
-//            name = "Fonction_User",
-//            joinColumns = @JoinColumn(name = "id"),
-//            inverseJoinColumns = @JoinColumn(name = "libelle")
-//    )
-//    private List<Fonction> fonctions;
-
     @OneToMany(mappedBy = "user")
     private List<Affectation> affectations;
 
