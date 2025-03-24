@@ -2,7 +2,6 @@ package com.example.controllers;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import com.example.model.*;
@@ -46,8 +45,11 @@ public class RegisterController {
         ModelAndView model = new ModelAndView();
         List<Login> list = loginRepository.findByLoginAndMdp(allParams.get("login"),allParams.get("mdp"));
         if (list.size()>0){
-            model.addObject("logins", ManageLogins.instance.addLogin(allParams.get("login"),allParams.get("mdp")));
-            model.setViewName("logins");
+            List<Login> logins = loginRepository.findAll();
+            model.addObject("logedusers",ManageLogins.instance.addLogin(allParams.get("login"),allParams.get("mdp")));
+            model.addObject("users", userRepository.getInfoUsers());
+            model.addObject("currentlogeduser",allParams.get("login"));
+            model.setViewName("loginsList");
         }else{
             model.addObject("Error","Identifiants incorrects");
             model.setViewName("login");
@@ -58,7 +60,12 @@ public class RegisterController {
     @PostMapping("/register")
     public ModelAndView getDataRegistryForm(@RequestParam Map<String,String> allParams) throws ParseException {
         ModelAndView model = new ModelAndView();
-        model.addObject("logins", ManageLogins.instance.addLogin(allParams.get("login"),allParams.get("mdp")));
+        List<Login> list = loginRepository.findByLogin(allParams.get("login"));
+        if (list.size()>0){
+            model.addObject("Error","Identifiant existe déjà");
+            model.setViewName("register");
+            return model;
+        }
 
         try {
             // Create and save the user
@@ -76,7 +83,6 @@ public class RegisterController {
 
             // Create affectation with composite key
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-            
             Affectation affectation = new Affectation();
             AffectationId affectationId = new AffectationId(user.getId(), fonction.getLibelle());
             affectation.setId(affectationId);
@@ -84,10 +90,11 @@ public class RegisterController {
             affectation.setFonction(fonction);
             affectation.setDb(dateFormat.parse("01-01-2025"));
             affectation.setDf(dateFormat.parse("23-03-2025"));
-            
             affectationRepository.save(affectation);
             
-            model.setViewName("logins");
+            model.setViewName("register");
+            model.addObject("Success", "Inscrit avec succès");
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
             model.addObject("Error", "Une erreur s'est produite lors de l'enregistrement");
@@ -96,4 +103,12 @@ public class RegisterController {
         
         return model;
     }
+
+    @PostMapping("logout")
+    public ModelAndView logout(@RequestParam Map<String,String> allParams){
+        ModelAndView model = new ModelAndView();
+        model.setViewName("login");
+        return model;
+    }
+
 }

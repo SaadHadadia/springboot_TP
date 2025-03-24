@@ -43,69 +43,62 @@
                 <%= request.getAttribute("Error") %>
               </p>
             </div>
-          <% } %>
-          <% elseif(request.getAttribute("Success") !=null){ %>
-            <div class="mb-4 p-2 rounded-lg bg-green-100 border border-green-400 text-green-700">
-              <p class="text-center">
-                <%= request.getAttribute("Success") %>
-              </p>
-            </div>
-          <% } %>
+            <% } %>
 
-              <form method="post" action="login" class="space-y-6">
-                <div>
-                  <div class="relative">
-                    <input type="text" id="login" name="login" required
-                      class="peer w-full px-4 py-3 rounded-lg border-2 border-gray-200 outline-none focus:border-primary transition-colors placeholder-transparent"
-                      placeholder="Identifiant" />
-                    <label for="login" class="absolute left-4 -top-3 text-sm text-gray-500 bg-white px-1 transition-all
+                <form method="post" action="login" class="space-y-6">
+                  <div>
+                    <div class="relative">
+                      <input type="text" id="login" name="login" required
+                        class="peer w-full px-4 py-3 rounded-lg border-2 border-gray-200 outline-none focus:border-primary transition-colors placeholder-transparent"
+                        placeholder="Identifiant" />
+                      <label for="login" class="absolute left-4 -top-3 text-sm text-gray-500 bg-white px-1 transition-all
                 peer-placeholder-shown:text-base peer-placeholder-shown:top-3
                 peer-focus:-top-3 peer-focus:text-sm peer-focus:text-primary">
-                      Identifiant
-                    </label>
+                        Identifiant
+                      </label>
+                    </div>
                   </div>
-                </div>
 
-                <div>
-                  <div class="relative">
-                    <input type="password" id="password" name="mdp" required
-                      class="peer w-full px-4 py-3 rounded-lg border-2 border-gray-200 outline-none focus:border-primary transition-colors placeholder-transparent"
-                      placeholder="Mot de passe" />
-                    <label for="password" class="absolute left-4 -top-3 text-sm text-gray-500 bg-white px-1 transition-all
+                  <div>
+                    <div class="relative">
+                      <input type="password" id="password" name="mdp" required
+                        class="peer w-full px-4 py-3 rounded-lg border-2 border-gray-200 outline-none focus:border-primary transition-colors placeholder-transparent"
+                        placeholder="Mot de passe" />
+                      <label for="password" class="absolute left-4 -top-3 text-sm text-gray-500 bg-white px-1 transition-all
                 peer-placeholder-shown:text-base peer-placeholder-shown:top-3
                 peer-focus:-top-3 peer-focus:text-sm peer-focus:text-primary">
-                      Mot de passe
-                    </label>
+                        Mot de passe
+                      </label>
+                    </div>
                   </div>
-                </div>
 
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center">
-                    <input id="remember" name="remember" type="checkbox"
-                      class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded" />
-                    <label for="remember" class="ml-2 block text-sm text-gray-700">
-                      Se souvenir de moi
-                    </label>
+                  <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                      <input id="remember" name="remember" type="checkbox"
+                        class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded" />
+                      <label for="remember" class="ml-2 block text-sm text-gray-700">
+                        Se souvenir de moi
+                      </label>
+                    </div>
+                    <a href="#" class="text-sm text-primary hover:text-secondary">
+                      Mot de passe oublié?
+                    </a>
                   </div>
-                  <a href="#" class="text-sm text-primary hover:text-secondary">
-                    Mot de passe oublié?
+
+                  <div>
+                    <button type="submit"
+                      class="w-full bg-gradient-to-r from-primary to-secondary text-white font-medium py-3 px-4 rounded-lg hover:opacity-90 transition-opacity shadow-md">
+                      Se connecter
+                    </button>
+                  </div>
+                </form>
+
+                <div class="text-center mt-8">
+                  <p class="text-sm text-gray-600">Vous n'avez pas de compte ?</p>
+                  <a href="/register" class="text-primary hover:text-secondary font-medium">
+                    Créer un compte
                   </a>
                 </div>
-
-                <div>
-                  <button type="submit"
-                    class="w-full bg-gradient-to-r from-primary to-secondary text-white font-medium py-3 px-4 rounded-lg hover:opacity-90 transition-opacity shadow-md">
-                    Se connecter
-                  </button>
-                </div>
-              </form>
-
-              <div class="text-center mt-8">
-                <p class="text-sm text-gray-600">Vous n'avez pas de compte ?</p>
-                <a href="/register" class="text-primary hover:text-secondary font-medium">
-                  Créer un compte
-                </a>
-              </div>
         </div>
       </div>
     </div>

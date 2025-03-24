@@ -10,7 +10,6 @@ import java.util.List;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
-
     public List<User> findByNom(String nom);
 
     @Query("select l from User u inner join u.logins l")
@@ -19,12 +18,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query("select l from User u inner join u.logins l where u.nom=:USERNAME")
     public List<Login> getUserLogins(@Param(value = "USERNAME") String uName);
 
-    @Query("select l.login, u.nom from User u inner join u.logins l")
+    @Query("select l.login, u.nom, u.grade from User u inner join u.logins l")
     public List<Object[]> getInfoUsers();
-
 
     @Query("select u, count(l) from User u inner join u.logins l group by u having count(l)>=2")
     public List<User> getUserMaxLogin();
-
-
 }
