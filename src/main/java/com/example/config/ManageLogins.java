@@ -11,6 +11,11 @@ public enum ManageLogins {
 		liste.put(lg, mp);
 		return liste;
 	}
+
+	public HashMap <String, String> deleteLogin(String lg){
+		liste.remove(lg);
+		return liste;
+	}
 	
 	public HashMap<String, String> getListe() {
 		return liste;

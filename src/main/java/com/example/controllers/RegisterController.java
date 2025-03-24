@@ -107,6 +107,7 @@ public class RegisterController {
     @PostMapping("logout")
     public ModelAndView logout(@RequestParam Map<String,String> allParams){
         ModelAndView model = new ModelAndView();
+        ManageLogins.instance.deleteLogin(allParams.get("currentlogeduser"));
         model.setViewName("login");
         return model;
     }
