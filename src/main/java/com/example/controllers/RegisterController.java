@@ -78,19 +78,19 @@ public class RegisterController {
             loginRepository.save(login);
 
             // Create and save the fonction
-            Fonction fonction = new Fonction("developer");
-            fonctionRepository.save(fonction);
+//            Fonction fonction = new Fonction("developer");
+//            fonctionRepository.save(fonction);
 
             // Create affectation with composite key
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-            Affectation affectation = new Affectation();
-            AffectationId affectationId = new AffectationId(user.getId(), fonction.getLibelle());
-            affectation.setId(affectationId);
-            affectation.setUser(user);
-            affectation.setFonction(fonction);
-            affectation.setDb(dateFormat.parse("01-01-2025"));
-            affectation.setDf(dateFormat.parse("23-03-2025"));
-            affectationRepository.save(affectation);
+//            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+//            Affectation affectation = new Affectation();
+//            AffectationId affectationId = new AffectationId(user.getId(), fonction.getLibelle());
+//            affectation.setId(affectationId);
+//            affectation.setUser(user);
+//            affectation.setFonction(fonction);
+//            affectation.setDb(dateFormat.parse("01-01-2025"));
+//            affectation.setDf(dateFormat.parse("23-03-2025"));
+//            affectationRepository.save(affectation);
             
             model.setViewName("register");
             model.addObject("Success", "Inscrit avec succès");
@@ -104,11 +104,48 @@ public class RegisterController {
         return model;
     }
 
-    @PostMapping("logout")
+    @PostMapping("/logout")
     public ModelAndView logout(@RequestParam Map<String,String> allParams){
         ModelAndView model = new ModelAndView();
         ManageLogins.instance.deleteLogin(allParams.get("currentlogeduser"));
         model.setViewName("login");
+        return model;
+    }
+
+    @PostMapping("/myProfile")
+    public ModelAndView getProfileForm(@RequestParam Map<String,String> allParams) {
+        ModelAndView model = new ModelAndView();
+        String loginStr = allParams.get("currentlogeduser");
+        User user = userRepository.getDetailsUser(loginStr);
+        model.addObject("user", user);
+        model.addObject("loginStr", loginStr);
+        model.setViewName("myProfile");
+        return model;
+    }
+
+    @PostMapping("/updateprofile")
+    public ModelAndView updateProfile(@RequestParam Map<String,String> allParams) {
+        ModelAndView model = new ModelAndView();
+        try {
+            String loginStr = allParams.get("currentlogeduser");
+            User user = userRepository.getDetailsUser(loginStr);
+            
+            // Update user information
+            user.setNom(allParams.get("username"));
+            user.setGrade(allParams.get("grade"));
+            
+            // Save the updated user
+            userRepository.save(user);
+            
+            // Refresh the page with updated data
+            model.addObject("user", user);
+            model.addObject("loginStr", loginStr);
+            model.addObject("success", "Profile updated successfully");
+            model.setViewName("myProfile");
+        } catch (Exception e) {
+            model.addObject("error", "An error occurred while updating the profile");
+            model.setViewName("myProfile");
+        }
         return model;
     }
 

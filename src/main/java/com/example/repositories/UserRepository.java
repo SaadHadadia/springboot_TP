@@ -23,4 +23,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query("select u, count(l) from User u inner join u.logins l group by u having count(l)>=2")
     public List<User> getUserMaxLogin();
+
+    @Query("select u, l, f from User u inner join u.logins l inner join u.affectations a inner join a.fonction f where l.login = :login")
+    public User getDetailsUser(@Param("login") String login);
 }
