@@ -115,35 +115,109 @@ public class RegisterController {
     @PostMapping("/myProfile")
     public ModelAndView getProfileForm(@RequestParam Map<String,String> allParams) {
         ModelAndView model = new ModelAndView();
-        String loginStr = allParams.get("currentlogeduser");
-        User user = userRepository.getDetailsUser(loginStr);
+        String currentlogeduser = allParams.get("currentlogeduser");
+        User user = userRepository.getDetailsUser(currentlogeduser);
         model.addObject("user", user);
-        model.addObject("loginStr", loginStr);
+        model.addObject("currentlogeduser", currentlogeduser);
         model.setViewName("myProfile");
         return model;
     }
 
     @PostMapping("/updateprofile")
-    public ModelAndView updateProfile(@RequestParam Map<String,String> allParams) {
+    public ModelAndView updateProfile(@RequestParam Map<String, String> allParams) {
         ModelAndView model = new ModelAndView();
         try {
-            String loginStr = allParams.get("currentlogeduser");
-            User user = userRepository.getDetailsUser(loginStr);
-            
+            String currentlogeduser = allParams.get("currentlogeduser");
+            User user = userRepository.getDetailsUser(currentlogeduser);
+
+            if (user == null) {
+                model.addObject("error", "User not found");
+                model.setViewName("myProfile");
+                return model;
+            }
+
+            // Validate input fields
+            String username = allParams.get("username");
+            String grade = allParams.get("grade");
+
+            if (username == null || username.trim().isEmpty()) {
+                model.addObject("error", "Username cannot be empty");
+                model.setViewName("myProfile");
+                return model;
+            }
+
+            if (grade == null || grade.trim().isEmpty()) {
+                model.addObject("error", "Grade cannot be empty");
+                model.setViewName("myProfile");
+                return model;
+            }
+
             // Update user information
-            user.setNom(allParams.get("username"));
-            user.setGrade(allParams.get("grade"));
-            
+            user.setNom(username.trim());
+            user.setGrade(grade.trim());
+
             // Save the updated user
             userRepository.save(user);
-            
+
             // Refresh the page with updated data
             model.addObject("user", user);
-            model.addObject("loginStr", loginStr);
+            model.addObject("currentlogeduser", currentlogeduser);
             model.addObject("success", "Profile updated successfully");
             model.setViewName("myProfile");
         } catch (Exception e) {
-            model.addObject("error", "An error occurred while updating the profile");
+            model.addObject("error", "An error occurred while updating the profile: " + e.getMessage());
+            model.setViewName("myProfile");
+        }
+        return model;
+    }
+
+    @PostMapping("/changePassword")
+    public ModelAndView changePassword(@RequestParam Map<String, String> allParams) {
+        ModelAndView model = new ModelAndView();
+        try {
+            String currentlogeduser = allParams.get("currentlogeduser");
+            String currentPassword = allParams.get("currentPassword");
+            String newPassword = allParams.get("newPassword");
+            String confirmPassword = allParams.get("confirmPassword");
+
+            // Validate input fields
+            if (currentPassword == null || currentPassword.trim().isEmpty() ||
+                newPassword == null || newPassword.trim().isEmpty() ||
+                confirmPassword == null || confirmPassword.trim().isEmpty()) {
+                model.addObject("error", "All fields are required");
+                model.setViewName("myProfile");
+                return model;
+            }
+
+            if (!newPassword.equals(confirmPassword)) {
+                model.addObject("error", "New password and confirmation do not match");
+                model.setViewName("myProfile");
+                return model;
+            }
+
+            // Fetch the user by login
+            Login login = loginRepository.findByLogin(currentlogeduser).stream().findFirst().orElse(null);
+            if (login == null) {
+                model.addObject("error", "User not found");
+                model.setViewName("myProfile");
+                return model;
+            }
+
+            // Check if the current password matches
+            if (!login.getMdp().equals(currentPassword)) {
+                model.addObject("error", "Current password is incorrect");
+                model.setViewName("myProfile");
+                return model;
+            }
+
+            // Update the password
+            login.setMdp(newPassword);
+            loginRepository.save(login);
+
+            model.addObject("success", "Password changed successfully");
+            model.setViewName("myProfile");
+        } catch (Exception e) {
+            model.addObject("error", "An error occurred while changing the password: " + e.getMessage());
             model.setViewName("myProfile");
         }
         return model;

@@ -80,9 +80,10 @@
                                     <th scope="col"
                                         class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Grade</th>
-                                    <th scope="col"
-                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                         Status</th>
+                                    <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                            Action</th>
                                 </tr>
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
@@ -100,6 +101,18 @@
                                                 ${logedusers.containsKey(userInfo[0]) ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
                                                 ${logedusers.containsKey(userInfo[0]) ? 'En ligne' : 'Hors ligne'}
                                             </span>
+                                        </td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${userInfo[2]}
+                                        </td>
+                                        <td>
+                                            <a type="submit" href="/functions/${userInfo[0]}"
+                                                class="inline-flex items-center px-4 py-2 border border-transparent rounded-md text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        d="M10 2a2 2 0 00-2 2v2H5a2 2 0 00-2 2v10a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-3V4a2 2 0 00-2-2h-4zm0 2h4v2h-4V4zM5 10h14v10H5V10z" />
+                                                </svg>
+                                                Fonctions
+                                            </a>
                                         </td>
                                     </tr>
                                 </c:forEach>

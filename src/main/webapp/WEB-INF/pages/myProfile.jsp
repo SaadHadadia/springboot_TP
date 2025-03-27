@@ -75,7 +75,7 @@
                                     <div class="grid grid-cols-2 gap-6">
                                         <div>
                                             <label class="text-sm font-medium text-gray-500" for="login">Login</label>
-                                            <input type="text" id="login" name="login" value="${loginStr}" disabled
+                                            <input type="text" id="login" name="login" value="${currentlogeduser}" disabled
                                                 class="mt-1 block w-full rounded-md py-3 px-4 border-gray-300 shadow-sm focus:border-primary focus:ring-primary sm:text-sm bg-gray-50">
                                         </div>
                                         <div>
@@ -93,7 +93,7 @@
                                         <div>
                                             <p class="text-sm font-medium text-gray-500">Statut</p>
                                             <span
-                                                class="mt-1 px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                                                class="mt-5 px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
                                                 En ligne
                                             </span>
                                         </div>
@@ -114,7 +114,7 @@
                             <!-- Password Change Form -->
                             <div class="bg-gray-50 p-6 rounded-lg">
                                 <h2 class="text-xl font-semibold text-gray-900 mb-4">Changer le mot de passe</h2>
-                                <form action="/changePassword" method="post" class="space-y-4">
+                                <form action="/changePassword" method="post" class="space-y-6">
                                     <input type="hidden" name="currentlogeduser" value="${currentlogeduser}" />
                                     <div>
                                         <label for="currentPassword" class="block text-sm font-medium text-gray-700">
@@ -140,7 +140,7 @@
                                     <div class="flex justify-end">
                                         <button type="submit"
                                             class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                                            Changer le mot de passe
+                                            Enregistrer
                                         </button>
                                     </div>
                                 </form>
@@ -183,6 +183,13 @@
                         });
                         editButton.classList.remove('hidden');
                         saveButtons.classList.add('hidden');
+                    });
+
+                    // Enable all fields before form submission
+                    form.addEventListener('submit', function () {
+                        inputs.forEach(input => {
+                            input.disabled = false;
+                        });
                     });
                 });
             </script>
