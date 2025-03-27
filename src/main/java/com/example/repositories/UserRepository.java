@@ -12,6 +12,9 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Integer> {
     public List<User> findByNom(String nom);
 
+    // Like nom%
+    public List<User> findByNomStartsWith(String nom);
+
     @Query("select l from User u inner join u.logins l")
     public List<Login> getAllLogins();
 

@@ -1,5 +1,6 @@
 package com.example.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,11 +14,13 @@ public class Affectation {
     @EmbeddedId
     private AffectationId id;
 
+    @JsonBackReference
     @ManyToOne
     @MapsId("userId")
     @JoinColumn(name = "user_id")
     private User user;
 
+    @JsonBackReference
     @ManyToOne
     @MapsId("fonctionId")
     @JoinColumn(name = "fonction_libelle")

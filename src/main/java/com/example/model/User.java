@@ -1,5 +1,7 @@
 package com.example.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,9 +17,11 @@ public class User {
     private String nom;
     private String grade;
 
+    @JsonBackReference("user-login")
     @OneToMany(mappedBy = "user")
     private List<Login> logins;
 
+    @JsonBackReference("user-affectation")
     @OneToMany(mappedBy = "user")
     private List<Affectation> affectations;
 

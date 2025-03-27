@@ -1,6 +1,7 @@
 package com.example.model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,6 +16,7 @@ public class Fonction {
     @Id
     private String libelle;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "fonction")
     private List<Affectation> affectations;
 

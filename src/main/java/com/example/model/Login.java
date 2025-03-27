@@ -1,5 +1,6 @@
 package com.example.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
@@ -14,6 +15,7 @@ public class Login {
 	private String login;
 	private String mdp;
 
+	@JsonBackReference
 	@ManyToOne
 	User user;
 
