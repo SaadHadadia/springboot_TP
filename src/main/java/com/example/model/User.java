@@ -17,11 +17,11 @@ public class User {
     private String nom;
     private String grade;
 
-    @JsonBackReference("user-login")
+    @JsonManagedReference
     @OneToMany(mappedBy = "user")
     private List<Login> logins;
 
-    @JsonBackReference("user-affectation")
+    @JsonManagedReference
     @OneToMany(mappedBy = "user")
     private List<Affectation> affectations;
 

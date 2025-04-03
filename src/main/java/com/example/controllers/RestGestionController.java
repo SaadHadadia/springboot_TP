@@ -1,9 +1,11 @@
 package com.example.controllers;
 
+import com.example.DTO.UserDTO;
 import com.example.model.Login;
 import com.example.model.User;
 import com.example.repositories.LoginRepository;
 import com.example.repositories.UserRepository;
+import com.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -18,9 +20,12 @@ public class RestGestionController {
     @Autowired
     LoginRepository loginRepository;
 
+    @Autowired
+    UserService userService;
+
     @GetMapping("/users")
-    public List<User>getUsers(){
-        return userRepository.findAll();
+    public List<UserDTO>getUsersDTO(){
+        return userService.getUsersDTO();
     }
 
     @GetMapping("/user/{id}")
@@ -32,11 +37,9 @@ public class RestGestionController {
         return userRepository.findByNomStartsWith(nom);
     }
 
-    @PostMapping(value= "/login",  consumes = "application/json")
-    public Login save(@RequestBody Object login){
-        System.out.println(login.toString());
-//        return loginRepository.save(login);
-        return null;
+    @PostMapping(value= "/login")
+    public Login save(@RequestBody Login login){
+        return loginRepository.save(login);
     }
 
     @GetMapping(value = "logins")
